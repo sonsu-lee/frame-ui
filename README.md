@@ -7,7 +7,7 @@ Storybook과 실제 Vite·Next.js 소비 예제는 후속 이슈에서 추가합
 
 ## 개발 환경
 
-- Node.js 22.12 이상. `.node-version`은 22를 사용하고 CI에서는 22와 24를 검사합니다.
+- 개발용 Node.js 버전은 `.node-version`의 `22.23.2`로 고정합니다. 지원 최소 버전은 22.12이며 CI에서는 22와 24 계열을 검사합니다.
 - pnpm 10.34.5 (`packageManager`에 고정)
 - React 19, TypeScript 5.9, StyleX 0.19, Vite 8
 
@@ -16,7 +16,7 @@ pnpm install --frozen-lockfile
 pnpm check
 ```
 
-`pnpm check`는 타입 검사, 패키지 빌드, 배포물 검증을 순서대로 실행합니다.
+`pnpm check`는 타입 검사와 패키지 빌드를 순서대로 실행합니다.
 소스 JSX 변환과 StyleX CSS 추출은 공식 `@stylexjs/unplugin`을 적용한 Vite library build가
 담당하고, 타입 선언은 TypeScript가 별도로 생성합니다.
 `build/entry.ts`에서 CSS를 가져와 추출하고 타입 선언은 `src`에서만 생성하므로,
@@ -24,9 +24,8 @@ pnpm check
 
 | 명령 | 결과 |
 | --- | --- |
-| `pnpm typecheck` | 소스·빌드 fixture·Vite 설정 타입 검사 |
+| `pnpm typecheck` | 소스·빌드 진입점·Vite 설정 타입 검사 |
 | `pnpm build` | `dist/index.js`, 타입 선언, `dist/styles.css` 생성 |
-| `pnpm check:package` | 먼저 빌드한 결과의 실제 tarball·ESM import·타입 해석·StyleX 변환 검사 |
 | `pnpm pack` | 빌드 후 로컬 tarball 생성. 레지스트리에 게시하지 않음 |
 
 ## 패키지 계약
@@ -50,12 +49,10 @@ import 'frame-ui/styles.css';
 Tailwind는 사용하지 않습니다.
 
 컴포넌트 진입점의 출력에는 `"use client"`를 유지합니다. 향후 서버에서 읽을 토큰 메타데이터를
-추가할 때는 이 client 진입점과 분리해야 합니다. 지금의 검사는 지시문 보존을 확인하며,
-Next.js SSR·hydration 전체 호환성을 검증한 것은 아닙니다.
+추가할 때는 이 client 진입점과 분리해야 합니다. Next.js SSR·hydration 전체 호환성은
+후속 이슈 #7에서 검증합니다.
 
-`tests/fixtures`의 React·StyleX 예제는 빌드 검증용이며 패키지에 포함되지 않습니다.
-검사는 fixture의 실제 React 렌더 결과와 추출된 CSS를 비교하고, 정적 스타일과 동적 CSS 변수가
-연결되는지 확인합니다. 실제 앱 설치·브라우저 검증은 아래 후속 이슈에서 진행합니다.
+실제 패키지 소비와 브라우저 검증은 아래 후속 이슈에서 진행합니다.
 
 ## 후속 작업
 

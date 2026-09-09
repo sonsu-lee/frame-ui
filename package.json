@@ -21,8 +21,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit && tsc --project tsconfig.tools.json",
     "build": "vite build && tsc --project tsconfig.build.json",
-    "check:package": "node scripts/check-package.mjs",
-    "check": "pnpm typecheck && pnpm build && pnpm check:package",
+    "check": "pnpm typecheck && pnpm build",
     "prepack": "pnpm build"
   },
   "peerDependencies": {

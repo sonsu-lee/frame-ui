@@ -1,7 +1,6 @@
 # Frame UI 작업 지침
 
 - 시작 전에 Git 상태와 대상 이슈를 확인하고 관계없는 변경을 보존한다.
-- 기여·검증·리뷰의 공통 기준은 [CONTRIBUTING.md](CONTRIBUTING.md)를 따른다.
 - StyleX로 스타일을 작성한다. Base UI는 합의된 상호작용 컴포넌트에서 필요할 때 추가한다.
 - 공개 컴포넌트, 디자인 토큰, Storybook과 소비 예제는 각각의 이슈 범위에서 구현한다.
 - `pnpm check`로 현재 기반 설정을 검증한다. UI나 Next hydration 검증을 실행한 것으로 과장하지 않는다.
