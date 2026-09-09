@@ -1,21 +1,22 @@
 # Frame UI
 
-React와 StyleX로 만드는 기본 UI 라이브러리입니다.
+개인 프로젝트에서 재사용하고 직접 커스텀할 수 있도록 React와 StyleX로 만드는 UI kit입니다.
 
 현재는 **패키지 기반 설정 단계**입니다. 공개 컴포넌트와 디자인 토큰은 아직 없으며,
 Storybook과 실제 Vite·Next.js 소비 예제는 후속 이슈에서 추가합니다.
 
 ## 개발 환경
 
-- 개발용 Node.js 버전은 `.node-version`의 `22.23.2`로 고정합니다. 지원 최소 버전은 22.12이며 CI에서는 22.23.2와 24.21.0을 검사합니다.
+- Node.js 24 LTS를 기준으로 개발합니다. 지원 최소 버전은 24.0이며 개발·CI 버전은 `.node-version`의 `24.21.0`으로 고정합니다.
 - pnpm 12.3.4 (`packageManager`에 고정)
 - React 19, TypeScript 7, StyleX 0.19, Vite 8
 
-`@types/node`는 지원하는 Node 22 계열의 최신 버전을 사용합니다. `unplugin`은
+`@types/node`는 Node 24 계열의 최신 버전을 사용합니다. `unplugin`은
 `@stylexjs/unplugin`의 peer 요구사항에 맞는 2.x 계열의 최신 버전을 사용합니다.
 
-CI는 [Delino Nodeup](https://github.com/delinoio/oss/tree/main/apps/nodeup-docs) 0.2.0으로
-Node.js를 설치하고, `packageManager`에 고정한 pnpm을 실행합니다.
+CI는 [Nodeup의 GitHub Actions 설치 예제](https://nodeup.delino.io/installation#github-actions)에 따라
+`taiki-e/install-action`과 `cargo-binstall`로 Nodeup 0.2.0을 설치합니다.
+Nodeup으로 Node.js를 선택하고, `packageManager`에 고정한 pnpm을 실행합니다.
 로컬에서 Nodeup을 사용한다면 설치 후 shim 디렉터리를 `PATH`의 앞에 둔 상태에서
 아래 명령을 실행합니다. Nodeup은 `.node-version`을 자동으로 읽지 않으므로 디렉터리별
 override에 버전을 지정합니다.
@@ -54,7 +55,7 @@ CSS는 앱 진입점이나 Next.js 루트 layout에서 한 번 가져옵니다.
 import 'frame-ui/styles.css';
 ```
 
-현재 CSS에는 레이어 선언만 있습니다. 원본 디자인 토큰과 컴포넌트 스타일은 후속 이슈에서
+현재 CSS에는 레이어 선언만 있습니다. Frame UI의 디자인 토큰과 컴포넌트 스타일은 후속 이슈에서
 추가합니다. React·ReactDOM·StyleX는 peer dependency로 두고 번들에 포함하지 않습니다.
 Tailwind는 사용하지 않습니다.
 
@@ -70,8 +71,3 @@ Tailwind는 사용하지 않습니다.
 - [Storybook·UI·접근성 검사 #3](https://github.com/sonsu-lee/frame-ui/issues/3)
 - [디자인 토큰과 테마 #4](https://github.com/sonsu-lee/frame-ui/issues/4)
 - [Vite·Next.js 실제 패키지 소비 검증 #7](https://github.com/sonsu-lee/frame-ui/issues/7)
-
-디자인 이식의 참고 원본은
-[quasar-ui-sellmate-ui-kit](https://www.npmjs.com/package/quasar-ui-sellmate-ui-kit)입니다.
-현재 기반 설정에는 원본의 코드·디자인 자산을 복사하지 않았습니다.
-이후 이식 시 재사용한 내용의 출처와 라이선스 고지를 함께 보존합니다.

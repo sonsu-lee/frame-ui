@@ -14,45 +14,31 @@ concurrency:
 
 jobs:
   package:
-    name: Package (Node ${{ matrix.node }})
+    name: Package (Node 24)
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      FRAME_UI_NODE_VERSION: ${{ matrix.version }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - node: 22
-          - node: 24
-            version: 24.21.0
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Install Nodeup
+      - uses: taiki-e/install-action@c3ec0de9ae7f1019cea21aa96aa0a895b9552063 # v2.87.9
+        with:
+          tool: cargo-binstall
+      - name: Set up Node.js
         run: |
-          archive="$RUNNER_TEMP/nodeup.tar.gz"
-          bin_dir="$RUNNER_TEMP/frame-ui-nodeup/bin"
-          curl --fail --silent --show-error --location \
-            'https://github.com/delinoio/oss/releases/download/nodeup@v0.2.0/nodeup-linux-amd64.tar.gz' \
-            --output "$archive"
-          echo "23bb902638df36121731c4c9b4a4318dcc4aa279e695f6fa7749d8670ced6251  $archive" | sha256sum --check
-          mkdir -p "$bin_dir"
-          tar -xzf "$archive" -C "$bin_dir" nodeup
-          echo "$bin_dir" >> "$GITHUB_PATH"
-      - name: Set up Node.js and pnpm
-        id: runtime
+          cargo binstall nodeup --version 0.2.0 --no-confirm
+          nodeup default "$(cat .node-version)"
+          nodeup shim setup
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Locate pnpm store
+        id: pnpm
         run: |
-          node_version="${FRAME_UI_NODE_VERSION:-$(cat .node-version)}"
-          nodeup default "$node_version"
-          nodeup shim setup --dir "$RUNNER_TEMP/frame-ui-nodeup/bin"
           node --version
           pnpm --version
           echo "store-path=$(pnpm store path)" >> "$GITHUB_OUTPUT"
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          path: ${{ steps.runtime.outputs.store-path }}
-          key: pnpm-${{ runner.os }}-${{ runner.arch }}-node${{ matrix.node }}-${{ hashFiles('pnpm-lock.yaml') }}
+          path: ${{ steps.pnpm.outputs.store-path }}
+          key: pnpm-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.node-version', 'pnpm-lock.yaml') }}
       - run: |
           pnpm install --frozen-lockfile
-          test "$(pnpm exec node -p process.version)" = "v${FRAME_UI_NODE_VERSION:-$(cat .node-version)}"
+          test "$(pnpm exec node -p process.version)" = "v$(cat .node-version)"
       - run: pnpm check
