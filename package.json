@@ -4,7 +4,7 @@
   "private": true,
   "description": "React and StyleX UI primitives",
   "type": "module",
-  "packageManager": "pnpm@10.34.5",
+  "packageManager": "pnpm@12.3.4",
   "engines": {
     "node": ">=22.12.0"
   },
@@ -19,7 +19,7 @@
   },
   "sideEffects": ["**/*.css"],
   "scripts": {
-    "typecheck": "tsc --noEmit && tsc --project tsconfig.tools.json",
+    "typecheck": "tsc && tsc --project tsconfig.tools.json",
     "build": "vite build && tsc --project tsconfig.build.json",
     "check": "pnpm typecheck && pnpm build",
     "prepack": "pnpm build"
@@ -34,10 +34,9 @@
     "@stylexjs/unplugin": "0.19.0",
     "@types/node": "22.20.1",
     "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.7",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "typescript": "5.9.3",
+    "typescript": "7.0.2",
     "unplugin": "2.3.11",
     "vite": "8.2.2"
   },

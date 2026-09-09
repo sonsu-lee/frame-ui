@@ -7,11 +7,21 @@ Storybook과 실제 Vite·Next.js 소비 예제는 후속 이슈에서 추가합
 
 ## 개발 환경
 
-- 개발용 Node.js 버전은 `.node-version`의 `22.23.2`로 고정합니다. 지원 최소 버전은 22.12이며 CI에서는 22와 24 계열을 검사합니다.
-- pnpm 10.34.5 (`packageManager`에 고정)
-- React 19, TypeScript 5.9, StyleX 0.19, Vite 8
+- 개발용 Node.js 버전은 `.node-version`의 `22.23.2`로 고정합니다. 지원 최소 버전은 22.12이며 CI에서는 22.23.2와 24.21.0을 검사합니다.
+- pnpm 12.3.4 (`packageManager`에 고정)
+- React 19, TypeScript 7, StyleX 0.19, Vite 8
+
+`@types/node`는 지원하는 Node 22 계열의 최신 버전을 사용합니다. `unplugin`은
+`@stylexjs/unplugin`의 peer 요구사항에 맞는 2.x 계열의 최신 버전을 사용합니다.
+
+CI는 [Delino Nodeup](https://github.com/delinoio/oss/tree/main/apps/nodeup-docs) 0.2.0으로
+Node.js를 설치하고, `packageManager`에 고정한 pnpm을 실행합니다.
+로컬에서 Nodeup을 사용한다면 설치 후 shim 디렉터리를 `PATH`의 앞에 둔 상태에서
+아래 명령을 실행합니다. Nodeup은 `.node-version`을 자동으로 읽지 않으므로 디렉터리별
+override에 버전을 지정합니다.
 
 ```sh
+nodeup override set "$(cat .node-version)"
 pnpm install --frozen-lockfile
 pnpm check
 ```
