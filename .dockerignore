@@ -1,0 +1,8 @@
+node_modules
+dist
+.git
+.sonsu
+.engineering
+.artifacts
+storybook-static
+tests/visual/__screenshots__

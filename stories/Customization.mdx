@@ -1,0 +1,11 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Customization/Verification environment" />
+
+# 검증 환경과 변경
+
+공개 커스텀 테마는 이슈 #4에서 추가합니다. 지금은 light, ko-KR, Asia/Tokyo, DPR 1, reduced motion, 1280×800 / 360×800 조건을 고정합니다.
+
+기준 이미지 갱신은 README의 선택 갱신 명령을 사용하고 diff와 실제 화면을 검토합니다. macOS 결과를 Linux 기준 이미지로 저장하지 않습니다. 브라우저·OS·폰트·렌더링 설정 변경은 기준 이미지 재검토 사유이며 CI에서 자동 승인하지 않습니다.
+
+새 UI PR에는 Story·문서·동작·axe·시각 증거, 콘솔/네트워크 확인, 수동 결과와 not_run을 함께 기록합니다.

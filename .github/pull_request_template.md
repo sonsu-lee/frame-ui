@@ -18,4 +18,13 @@
 
 ## 위험 및 참고
 
-<!-- UI 변경이면 관련 Story와 화면 증거를 포함합니다. -->
+<!-- UI 변경이면 아래를 실제 실행 결과 / not_run / 해당 없음으로 기록합니다.
+- Story 및 문서 링크, 조작 전후 기대 상태와 화면 증거
+- pnpm check / test:storybook / test:visual, 실제 CI와 로컬 결과 구분
+- body axe: 닫힘·오류·열린 Portal, incomplete 수동 판정
+- 키보드 순서·focus 표시/복귀, 좁은 화면·긴 문구·200% 브라우저 확대·reduced motion
+- 콘솔 warning/error, pageerror, 리소스/API 실패
+- baseline 변경 이유, 두 viewport 실제 화면 검토자·결과, 동일 ARM64 CI 비교
+- 최종 전체 독립 리뷰와 별도 fresh-context red-team 결과
+UI·Next hydration·서비스 persona 검증을 실행한 범위보다 넓게 주장하지 않습니다.
+-->

@@ -8,7 +8,9 @@
   "engines": {
     "node": ">=24.0.0"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -17,12 +19,20 @@
     },
     "./styles.css": "./dist/styles.css"
   },
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
-    "typecheck": "tsc && tsc --project tsconfig.tools.json",
+    "typecheck": "tsc && tsc --project tsconfig.tools.json && tsc --project tsconfig.storybook.json",
     "build": "vite build && tsc --project tsconfig.build.json",
     "check": "pnpm typecheck && pnpm build",
-    "prepack": "pnpm build"
+    "prepack": "pnpm build",
+    "storybook": "storybook dev -p 6006 --no-open --disable-telemetry",
+    "build:storybook": "storybook build --disable-telemetry",
+    "test:storybook": "vitest run --project storybook",
+    "test:visual": "node scripts/visual.mjs",
+    "test:visual:update": "node scripts/visual.mjs --update",
+    "test:ui": "pnpm test:storybook && pnpm test:visual"
   },
   "peerDependencies": {
     "@stylexjs/stylex": "^0.19.0",
@@ -30,15 +40,28 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@fontsource/noto-sans-kr": "5.3.0",
+    "@playwright/test": "1.63.0",
+    "@storybook/addon-a11y": "10.6.0",
+    "@storybook/addon-docs": "10.6.0",
+    "@storybook/addon-vitest": "10.6.0",
+    "@storybook/react-vite": "10.6.0",
     "@stylexjs/stylex": "0.19.0",
     "@stylexjs/unplugin": "0.19.0",
     "@types/node": "24.13.3",
     "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "@vitest/browser-playwright": "4.1.11",
+    "axe-core": "4.13.0",
+    "playwright": "1.63.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
+    "storybook": "10.6.0",
     "typescript": "7.0.2",
     "unplugin": "2.3.11",
-    "vite": "8.2.2"
+    "vite": "8.2.2",
+    "vitest": "4.1.11"
   },
   "repository": {
     "type": "git",

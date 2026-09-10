@@ -1,0 +1,11 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Patterns/Verification" />
+
+# 동작·접근성 검증
+
+`pnpm test:storybook`은 일회성 Vitest 실행으로 play assertion과 addon-a11y를 검사합니다. `pnpm test:visual`은 고정 ARM64 컨테이너에서 정적 Storybook을 빌드하고 Playwright로 상태 전환·body axe·스크린샷을 검사합니다. `pnpm test:ui`는 두 명령의 순차 실행입니다.
+
+WCAG 2.2 A/AA에 포함되는 axe 태그는 wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa입니다. 검사 대상은 manager UI가 아닌 preview body이며 Portal도 포함합니다. fragment의 랜드마크 소유권 때문에 region 규칙만 해제하며, 소비 앱에서는 문서 수준 규칙도 검증해야 합니다. Storybook 자체의 .sb-wrapper, #storybook-docs, #storybook-highlights-root만 제외합니다.
+
+axe violations는 실패하고 incomplete는 JSON 증거로 남겨 수동 판정합니다. 자동 검사 통과가 접근성 전체를 보장하지 않습니다. 키보드 순서·focus 표시와 복귀, 좁은 화면·긴 문구·실제 브라우저 200% 확대·reduced motion을 관련 UI에서 확인하고 기록합니다.

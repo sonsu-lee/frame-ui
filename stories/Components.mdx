@@ -1,0 +1,15 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Components/Authoring" />
+
+# 컴포넌트와 상태 작성
+
+공개 컴포넌트는 아직 없습니다. Internal/Verification은 테스트 환경 확인용이며 패키지에서 export하지 않습니다.
+
+- 이 fixture의 heading은 live Control입니다. initialError·initialOpen은 마운트 시에만 읽으므로 Controls를 비활성화하고 Error·PortalOpen Story로 확인합니다.
+- 컴포넌트별 CSF에 `component`, 타입이 있는 `args`와 `argTypes`를 정의합니다. Autodocs와 Controls는 공통 설정을 따릅니다.
+- 기본, 오류, disabled, focus, 긴 문구, 열린 Portal 등 실제 지원 상태를 명시합니다. 지원하지 않는 상태를 fixture에 억지로 추가하지 않습니다.
+- 시각 대상은 args로 초기 상태를 정하고 `play`를 넣지 않습니다. Playwright가 조작 전후 상태를 소유합니다.
+- 동작은 별도 Interaction story의 `play`에 역할·이름 기반 userEvent와 assertion으로 작성합니다. 열린 Portal은 preview body에서 찾습니다.
+- 날짜·랜덤·네트워크 데이터는 고정합니다. readiness는 폰트 로딩과 기대 상태로 판단하며 고정 sleep으로 가리지 않습니다.
+- 스타일은 StyleX로 작성하고 공개 API·토큰·Base UI 도입은 해당 이슈 범위에서 검토합니다.
