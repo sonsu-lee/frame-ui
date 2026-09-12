@@ -42,3 +42,43 @@ jobs:
           pnpm install --frozen-lockfile
           test "$(pnpm exec node -p process.version)" = "v$(cat .node-version)"
       - run: pnpm check
+
+  storybook:
+    name: Storybook (Chromium)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: taiki-e/install-action@c3ec0de9ae7f1019cea21aa96aa0a895b9552063 # v2.87.9
+        with:
+          tool: cargo-binstall
+      - name: Set up Node.js
+        run: |
+          cargo binstall nodeup --version 0.2.0 --no-confirm
+          nodeup default "$(cat .node-version)"
+          nodeup shim setup
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Locate pnpm store
+        id: pnpm
+        run: |
+          node --version
+          pnpm --version
+          echo "store-path=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.pnpm.outputs.store-path }}
+          key: pnpm-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.node-version', 'pnpm-lock.yaml') }}
+      - run: |
+          pnpm install --frozen-lockfile
+          test "$(pnpm exec node -p process.version)" = "v$(cat .node-version)"
+      - run: pnpm build:storybook
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:storybook
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: failure()
+        with:
+          name: storybook-failure
+          retention-days: 14
+          include-hidden-files: true
+          path: .artifacts/storybook
+          if-no-files-found: ignore
