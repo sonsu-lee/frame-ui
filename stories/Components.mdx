@@ -1,0 +1,14 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Components/Authoring" />
+
+# 컴포넌트와 상태 작성
+
+공개 컴포넌트는 아직 없습니다. `Internal/Verification`은 테스트 환경 확인용이며 패키지에서 export하지 않습니다.
+
+- 각 CSF 파일에 `component`, 타입이 있는 `args`와 `argTypes`를 정의합니다. Autodocs와 Controls는 공통 설정을 따릅니다.
+- 기본, 오류, disabled, focus, 긴 문구, 열린 Portal 등 실제 지원 상태를 별도 Story로 명시합니다.
+- 마운트 시에만 읽는 초기 상태 props는 live Control을 비활성화하고 상태 Story로 확인합니다.
+- 동작은 역할·이름 기반 `userEvent`와 assertion을 사용하는 별도 Interaction Story의 `play`에 작성합니다. 열린 Portal은 preview body에서 찾습니다.
+- 날짜·랜덤·네트워크 데이터는 고정합니다. readiness는 기대 상태로 판단하며 고정 sleep으로 가리지 않습니다.
+- 스타일은 StyleX로 작성하고 공개 API·토큰·Base UI 도입은 해당 이슈 범위에서 검토합니다.

@@ -1,0 +1,11 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Customization/Verification environment" />
+
+# 검증 환경과 변경
+
+공개 커스텀 테마는 이슈 #4에서 추가합니다. 지금은 light, `ko-KR`, `Asia/Tokyo`, DPR 1, reduced motion, Chromium 1280×800 조건을 고정합니다.
+
+수동 시각 검토는 기본·오류·열린 Portal·긴 문구 Story를 일반 화면과 360px 좁은 화면에서 확인합니다. 200% 확대, 키보드 Tab/Enter, focus 표시·복귀, 콘솔 오류·경고와 네트워크 실패를 함께 기록합니다.
+
+새 UI PR에는 Story·문서·동작·axe 결과, 수동 화면 검토와 `not_run` 항목을 함께 기록합니다. 자동 스크린샷 비교와 baseline은 이슈 #17 범위에 포함하지 않습니다.
